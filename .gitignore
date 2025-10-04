@@ -1,0 +1,12 @@
+# Python
+__pycache__/
+*.pyc
+
+# Local research artifacts (not part of repo)
+research/
+*.pdf
+full_outputs/
+
+# OS/editor
+.DS_Store
+*.swp
