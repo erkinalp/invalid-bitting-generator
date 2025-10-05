@@ -301,6 +301,17 @@ def preset_warded(length: int = 5) -> KeySystem:
         stop_type="shoulder",
         min_first_station_index=0,
     )
+def preset_warded_multi(length: int = 5) -> KeySystem:
+    return KeySystem(
+        name=f"Warded_Multi_{length}",
+        d_min=0,
+        d_max=1,
+        macs=1,
+        length=length,
+        stop_type="shoulder",
+        min_first_station_index=0,
+    )
+
 
 
 def preset_disc_detainer_generic(length: int = 7) -> KeySystem:
@@ -369,6 +380,28 @@ def preset_disc_detainer_8(length: int = 8) -> KeySystem:
         d_max=6,
         macs=3,
         length=length,
+        stop_type="tip",
+        min_first_station_index=1,
+    )
+
+def preset_disc_detainer_abloy_classic() -> KeySystem:
+    return KeySystem(
+        name="DiscDetainer_ABLOY_Classic_7",
+        d_min=0,
+        d_max=6,
+        macs=3,
+        length=7,
+        stop_type="tip",
+        min_first_station_index=1,
+    )
+
+def preset_disc_detainer_abloy_protec2() -> KeySystem:
+    return KeySystem(
+        name="DiscDetainer_ABLOY_Protec2_9",
+        d_min=0,
+        d_max=6,
+        macs=3,
+        length=9,
         stop_type="tip",
         min_first_station_index=1,
     )
@@ -448,6 +481,8 @@ def get_preset(name: str, family: str | None = None) -> KeySystem:
     if name == "warded":
         if family in (None, "binary"):
             return preset_warded()
+        if family == "multiward":
+            return preset_warded_multi()
         raise ValueError("unknown warded family")
     if name == "disc_detainer":
         if family in (None, "generic"):
@@ -458,6 +493,10 @@ def get_preset(name: str, family: str | None = None) -> KeySystem:
             return preset_disc_detainer_7()
         if family == "8":
             return preset_disc_detainer_8()
+        if family == "abloy_classic":
+            return preset_disc_detainer_abloy_classic()
+        if family == "abloy_protec2":
+            return preset_disc_detainer_abloy_protec2()
         raise ValueError("unknown disc_detainer family")
     if name == "tubular":
         if family in (None, "ace7"):
@@ -543,8 +582,8 @@ def cli() -> None:
 
     if args.cmd == "families":
         print("families by preset:")
-        print("  warded: binary")
-        print("  disc_detainer: generic, 6, 7, 8")
+        print("  warded: binary, multiward")
+        print("  disc_detainer: generic, 6, 7, 8, abloy_classic, abloy_protec2")
         print("  tubular: ace7, ace8")
         print("  wafer: automotive, depth4_len5, depth5_len6")
         return

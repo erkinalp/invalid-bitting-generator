@@ -118,9 +118,12 @@ Family selector
   - wafer: automotive, depth4_len5, depth5_len6
 Examples (family selector)
 - python3 tool.py check --preset disc_detainer --family 6 --seq 0,6,0,6,0,6
+- python3 tool.py check --preset disc_detainer --family abloy_classic --seq 0,6,0,6,0,6,0
+- python3 tool.py check --preset disc_detainer --family abloy_protec2 --seq 0,6,0,6,0,6,0,6,0
 - python3 tool.py check --preset tubular --family ace8 --seq 0,7,0,7,0,7,0,7
 - python3 tool.py check --preset wafer --family depth4_len5 --seq 1,4,1,4,1
 - python3 tool.py check --preset warded --family binary --seq 0,1,0,1,0
+- python3 tool.py check --preset warded --family multiward --seq 1,0,1,0,1
 
 
 
@@ -178,6 +181,10 @@ Disc detainer (disc tumbler)
   - disc_detainer_6
   - disc_detainer_7
   - disc_detainer_8
+  - disc_detainer abloy_classic (family)
+  - disc_detainer abloy_protec2 (family)
+  - disc_detainer abloy_classic (family)
+  - disc_detainer abloy_protec2 (family)
 - Examples
   - python3 tool.py list-terminal --preset disc_detainer --limit 5
   - python3 tool.py check --preset disc_detainer_6 --seq 0,6,0,6,0,6
@@ -215,7 +222,7 @@ Wafer tumbler (automotive)
   - General automotive wafer lock overviews in locksmith manuals
 
 Preset matrix
-- Warded: warded
-- Disc detainer: disc_detainer, disc_detainer_6, disc_detainer_7, disc_detainer_8
+- Warded: warded (families: binary, multiward)
+- Disc detainer: disc_detainer, disc_detainer_6, disc_detainer_7, disc_detainer_8 (families: generic, 6, 7, 8, abloy_classic, abloy_protec2)
 - Tubular: tubular_ace7, tubular_ace8
 - Wafer: wafer_automotive, wafer_depth4_len5, wafer_depth5_len6
