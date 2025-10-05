@@ -137,7 +137,8 @@ CLI
   python3 tool.py check --preset warded_binary --seq 1,0,1,0
   python3 tool.py list-terminal --preset warded_multiward_8 --limit 5
 - Disc tumbler lock examples:
-  python3 tool.py check --preset disc_abloy_classic_6 --seq 0,6,0,3,2,1
+  python3 tool.py check --preset disc_abloy_classic_6 --seq 0,5,0,3,2,1
+  python3 tool.py check --preset disc_abloy_classic_6 --seq 0,0,0,0,1,2
   python3 tool.py list-terminal --preset disc_abloy_protec2_10 --limit 5
 - Tubular lock examples:
   python3 tool.py check --preset tubular_7pin --seq 0,9,0,5,3,2,1
@@ -158,6 +159,11 @@ Examples
 - Station ceiling example (configure --ceilings None,4,None,None,None,None and put 5 at pos 1):
   - Input: 1,5,1,1,1,1
   - Check: terminal=True reason=station-specific ceiling violated
+- Abloy Classic consecutive repeat constraint (max_consecutive_repeats=3):
+  - Input: 0,0,0,0,1,2 (4 consecutive 0s)
+  - Check: terminal=True reason=too many consecutive repeats of same cut
+  - Input: 0,0,0,1,2,3 (exactly 3 consecutive 0s)
+  - Check: terminal=False reason=repairable to a valid bitting by deepening
 
 Run locally
 - cd /home/ubuntu/work/key_bittings
