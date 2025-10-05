@@ -6,10 +6,10 @@ What’s new
   - Station-specific depth ceilings
   - Stop type (shoulder vs tip) and minimum first station
 - Added presets for pin tumbler locks: US, Euro, Kwikset SmartKey 6-key used in 5-pin plug, Schlage Everest full-size, Schlage Everest 29 SL tip-read, BEST A2 tip, Yale KeyMark conventional, Yale IC A2 tip, ASSA ABLOY Yale conventional
-- Added presets for warded locks: binary (2-depth), multiward-4 (4-depth), multiward-8 (8-depth)
-- Added presets for disc tumbler locks: Abloy Classic (6-disc and 10-disc), Abloy Protec2 (6-disc and 10-disc)
-- Added presets for tubular locks: 7-pin, 8-pin, and 10-pin variants
-- Added presets for wafer tumbler locks: 5-wafer shallow/deep, 6-wafer automotive, 10-wafer double-sided
+- Expanded warded lock presets with 7 families: binary, multiward (4/8-depth), lever (4/6-ward), skeleton key, padlock variants
+- Expanded disc tumbler lock presets with 11 families: Abloy Classic, Protec2, Disklock, Exec, Profile, Protec (various disc counts)
+- Expanded tubular lock presets with 7 families: 4-pin through 10-pin, Chicago 7-pin, Ace 8-pin variants
+- Expanded wafer tumbler lock presets with 12 families: shallow/deep, automotive (GM/Ford/Chrysler), desk drawer, cabinet, mailbox
 - Added CLI: check, repair, list-terminal, enumerate, presets
 
 Key findings with citations
@@ -72,6 +72,18 @@ Warded Locks
 - warded_multiward_8: 6-position multiward lock, depths 0..7, MACS 7
   - Complex ward patterns with 8 depth variations
   - Maximum complexity for warded lock designs
+- warded_lever_4: 5-position lever warded lock, depths 0..3, MACS 3
+  - Lever-based ward obstructions
+  - Common in historical door locks and padlocks
+- warded_lever_6: 5-position lever warded lock, depths 0..5, MACS 5
+  - Extended depth range for lever ward configurations
+  - Higher security variant with 6 depth levels
+- warded_skeleton_simple: 3-position skeleton key system, depths 0..1, MACS 1
+  - Simplified ward pattern for skeleton key compatibility
+  - Minimal ward obstructions, very low security
+- warded_padlock_4ward: 4-position padlock warded lock, depths 0..3, MACS 3
+  - Common Master Lock style warded padlock
+  - 4-ward configuration for outdoor applications
 
 Disc Tumbler Locks (Abloy)
 - disc_abloy_classic_6: 6-disc Abloy Classic, depths 0..5 (6 positions), MACS 5
@@ -88,8 +100,35 @@ Disc Tumbler Locks (Abloy)
 - disc_abloy_protec2_10: 10-disc Abloy Protec2, depths 0..11, MACS 10
   - Maximum security disc tumbler configuration
   - Extended depth range and disc count
+- disc_abloy_disklock_6: 6-disc Abloy Disklock, depths 0..11, MACS 10
+  - Disklock/Disklock Pro series for high-security applications
+  - 12 depth positions for increased key combinations
+- disc_abloy_disklock_10: 10-disc Abloy Disklock, depths 0..11, MACS 10
+  - Extended disc count Disklock variant
+  - Used in high-security padlocks and cylinders
+- disc_abloy_exec_6: 6-disc Abloy Exec, depths 0..11, MACS 10
+  - Exec series medium-high security disc detainer
+  - Designed for commercial and institutional use
+- disc_abloy_exec_10: 10-disc Abloy Exec, depths 0..11, MACS 10
+  - Extended disc count for higher security applications
+  - Common in European commercial installations
+- disc_abloy_profile_6: 6-disc Abloy Profile, depths 0..9, MACS 8
+  - Profile/High Profile series for general commercial use
+  - Intermediate security level between Classic and Protec
+- disc_abloy_profile_10: 10-disc Abloy Profile, depths 0..9, MACS 8
+  - Extended disc configuration for Profile series
+  - Widely used in Nordic countries for commercial locks
+- disc_abloy_protec_8: 8-disc Abloy Protec, depths 0..11, MACS 10
+  - Original Protec series (predecessor to Protec2)
+  - High security disc detainer with 8-disc configuration
 
 Tubular Pin Tumbler Locks
+- tubular_4pin: 4-pin tubular lock, depths 0..9, MACS 8
+  - Minimal tubular configuration for basic security
+  - Used in some simple vending machine applications
+- tubular_6pin: 6-pin tubular lock, depths 0..9, MACS 8
+  - Common in smaller diameter tubular locks
+  - Used in some computer locks and small equipment
 - tubular_7pin: 7-pin tubular lock, depths 0..9, MACS 8
   - Circular pin arrangement (common in vending machines)
   - Also known as Ace lock or circle pin tumbler
@@ -100,6 +139,14 @@ Tubular Pin Tumbler Locks
 - tubular_10pin: 10-pin tubular lock, depths 0..9, MACS 8
   - Extended pin count for increased security
   - Rare variant for high-security applications
+- tubular_chicago_7pin: 7-pin Chicago Lock Company style, depths 0..7, MACS 6
+  - Original Chicago Lock "Ace" patent design from 1933
+  - 8 depth levels (0-7) standard for vintage tubular locks
+  - Common in older vending machines and coin-operated equipment
+- tubular_ace_8pin: 8-pin Ace-style tubular lock, depths 0..7, MACS 6
+  - 8-pin variant of Chicago Lock design
+  - Standard configuration for mid-security applications
+  - Widely used in laundromat equipment and arcade machines
 
 Wafer Tumbler Locks
 - wafer_5wafer_shallow: 5-wafer lock, depths 0..4, MACS 3
@@ -115,6 +162,38 @@ Wafer Tumbler Locks
 - wafer_10wafer_double: 10-wafer double-sided lock, depths 0..9, MACS 8
   - Advanced wafer configuration with opposed wafer sets
   - Double-bitted key for higher security applications
+- wafer_gm_sidebar_10: 10-wafer GM sidebar lock, depths 0..9, MACS 8
+  - General Motors sidebar wafer tumbler system
+  - Used in GM vehicles from 1960s-1990s
+  - Features sidebar mechanism for additional security
+- wafer_ford_8cut: 8-wafer Ford automotive lock, depths 0..7, MACS 6
+  - Ford Motor Company 8-cut wafer system
+  - Common in Ford vehicles 1960s-1980s
+  - Single-sided key with 8 depth positions
+- wafer_ford_10cut: 10-wafer Ford automotive lock, depths 0..9, MACS 8
+  - Extended Ford wafer system with 10 cuts
+  - Used in later Ford models for increased security
+  - Higher key combination count
+- wafer_chrysler_7cut: 7-wafer Chrysler automotive lock, depths 0..6, MACS 5
+  - Chrysler Corporation 7-cut wafer system
+  - Used in Chrysler, Dodge, Plymouth vehicles
+  - 7 depth positions for mid-level security
+- wafer_chrysler_10cut: 10-wafer Chrysler automotive lock, depths 0..9, MACS 8
+  - Extended Chrysler wafer system with 10 positions
+  - Higher security variant for later model vehicles
+  - Increased key space complexity
+- wafer_desk_drawer_5: 5-wafer desk drawer lock, depths 0..4, MACS 3
+  - Standard office desk drawer configuration
+  - Simple 5-cut system for furniture applications
+  - Very common in office furniture from major manufacturers
+- wafer_cabinet_6: 6-wafer cabinet lock, depths 0..5, MACS 4
+  - Filing cabinet and storage cabinet standard
+  - 6-wafer configuration for light commercial use
+  - Used in metal office cabinets and storage units
+- wafer_mailbox_5: 5-wafer mailbox lock, depths 0..4, MACS 3
+  - USPS and residential mailbox standard wafer lock
+  - Weather-resistant low-security configuration
+  - Simple 5-cut pattern for postal applications
 
 CLI
 - Show presets:
@@ -135,17 +214,30 @@ CLI
   python3 tool.py list-terminal --preset assa_abloy_yale --limit 5
 - Warded lock examples:
   python3 tool.py check --preset warded_binary --seq 1,0,1,0
-  python3 tool.py list-terminal --preset warded_multiward_8 --limit 5
+  python3 tool.py check --preset warded_lever_6 --seq 0,5,0,3,2
+  python3 tool.py check --preset warded_skeleton_simple --seq 1,0,1
+  python3 tool.py list-terminal --preset warded_padlock_4ward --limit 5
 - Disc tumbler lock examples:
   python3 tool.py check --preset disc_abloy_classic_6 --seq 0,5,0,3,2,1
   python3 tool.py check --preset disc_abloy_classic_6 --seq 0,0,0,0,1,2
-  python3 tool.py list-terminal --preset disc_abloy_protec2_10 --limit 5
+  python3 tool.py check --preset disc_abloy_disklock_10 --seq 0,11,5,8,3,7,2,9,4,6
+  python3 tool.py check --preset disc_abloy_exec_6 --seq 0,10,5,7,3,8
+  python3 tool.py check --preset disc_abloy_profile_10 --seq 0,9,4,7,2,6,1,8,3,5
+  python3 tool.py list-terminal --preset disc_abloy_protec_8 --limit 5
 - Tubular lock examples:
+  python3 tool.py check --preset tubular_4pin --seq 0,9,5,3
+  python3 tool.py check --preset tubular_6pin --seq 0,9,4,6,2,7
   python3 tool.py check --preset tubular_7pin --seq 0,9,0,5,3,2,1
-  python3 tool.py list-terminal --preset tubular_8pin --limit 5
+  python3 tool.py check --preset tubular_chicago_7pin --seq 0,7,3,5,2,4,6
+  python3 tool.py check --preset tubular_ace_8pin --seq 0,7,2,5,1,6,3,4
+  python3 tool.py list-terminal --preset tubular_10pin --limit 5
 - Wafer tumbler lock examples:
   python3 tool.py check --preset wafer_5wafer_shallow --seq 0,4,0,2,1
-  python3 tool.py list-terminal --preset wafer_6wafer_auto --limit 5
+  python3 tool.py check --preset wafer_gm_sidebar_10 --seq 0,9,3,7,1,8,2,6,4,5
+  python3 tool.py check --preset wafer_ford_8cut --seq 0,7,3,5,2,6,1,4
+  python3 tool.py check --preset wafer_chrysler_10cut --seq 0,9,4,7,2,8,3,6,1,5
+  python3 tool.py check --preset wafer_desk_drawer_5 --seq 0,4,2,3,1
+  python3 tool.py list-terminal --preset wafer_cabinet_6 --limit 5
 - Enumerate small spaces:
   python3 tool.py enumerate --preset euro --pins 4 --max-repeat 4
 
