@@ -183,8 +183,6 @@ Disc detainer (disc tumbler)
   - disc_detainer_8
   - disc_detainer abloy_classic (family)
   - disc_detainer abloy_protec2 (family)
-  - disc_detainer abloy_classic (family)
-  - disc_detainer abloy_protec2 (family)
 - Examples
   - python3 tool.py list-terminal --preset disc_detainer --limit 5
   - python3 tool.py check --preset disc_detainer_6 --seq 0,6,0,6,0,6
