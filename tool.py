@@ -346,8 +346,8 @@ def preset_disc_abloy_classic_6(length: int = 6) -> KeySystem:
     return KeySystem(
         name=f"Disc_Abloy_Classic_{length}",
         d_min=0,
-        d_max=6,
-        macs=6,
+        d_max=5,
+        macs=5,
         length=length,
         stop_type="shoulder",
         min_first_station_index=0,
@@ -358,8 +358,8 @@ def preset_disc_abloy_classic_10(length: int = 10) -> KeySystem:
     return KeySystem(
         name=f"Disc_Abloy_Classic_{length}",
         d_min=0,
-        d_max=9,
-        macs=9,
+        d_max=5,
+        macs=5,
         length=length,
         stop_type="shoulder",
         min_first_station_index=0,

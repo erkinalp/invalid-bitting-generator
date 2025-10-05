@@ -73,13 +73,14 @@ Warded Locks
   - Maximum complexity for warded lock designs
 
 Disc Tumbler Locks (Abloy)
-- disc_abloy_classic_6: 6-disc Abloy Classic, depths 0..6, MACS 6
-  - Original Abloy design with rotating discs
-  - Semi-cylindrical key with angled notches (180° to 270° holes)
-  - Reference: https://en.wikipedia.org/wiki/Disc_tumbler_lock
-- disc_abloy_classic_10: 10-disc Abloy Classic, depths 0..9, MACS 9
-  - Extended disc count for higher security
-  - Uses same principle as 6-disc with more positions
+- disc_abloy_classic_6: 6-disc Abloy Classic, depths 0..5 (6 positions), MACS 5
+  - Original Abloy design with rotating discs at 18° increments (0° to 90°)
+  - Semi-cylindrical key with angled notches
+  - Constraint: No more than 3 consecutive positions can have the same cut
+  - Reference: https://www.lockwiki.com/index.php/Abloy_Classic
+- disc_abloy_classic_10: 10-disc Abloy Classic, depths 0..5 (6 positions), MACS 5
+  - Extended disc count for higher security (5-11 discs possible)
+  - Uses same 6 angular positions as 6-disc variant
 - disc_abloy_protec2_6: 6-disc Abloy Protec2, depths 0..9, MACS 8
   - Modern high-security disc detainer design
   - Improved false gate protection
@@ -165,3 +166,5 @@ Run locally
 Notes
 - Euro EN 1303/18252 public summaries are performance-classification oriented and do not include cutting geometry; OEM documents govern practical station/stop constraints.
 - The model accepts future numeric station ceilings when OEM tables are found; examples here are illustrative but the Kwikset no‑cut and Schlage stop rules are directly cited.
+- Abloy Classic has an additional constraint (max 3 consecutive same cuts) that creates many terminally invalid sequences. This constraint is documented but not yet implemented in the validation logic.
+- Lock types beyond pin tumblers (warded, tubular, wafer) use theoretical models based on general principles where formal specifications are unavailable.
