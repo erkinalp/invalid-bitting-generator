@@ -426,7 +426,7 @@ def preset_schlage_everest29_sl_tip(length: int = 6) -> KeySystem:
     )
 
 
-def get_preset(name: str) -> KeySystem:
+def get_preset(name: str, family: str | None = None) -> KeySystem:
     if name == "us":
         return preset_us()
     if name == "euro":
@@ -446,9 +446,33 @@ def get_preset(name: str) -> KeySystem:
     if name == "assa_abloy_yale":
         return preset_assa_abloy_yale_conventional()
     if name == "warded":
-        return preset_warded()
+        if family in (None, "binary"):
+            return preset_warded()
+        raise ValueError("unknown warded family")
     if name == "disc_detainer":
-        return preset_disc_detainer_generic()
+        if family in (None, "generic"):
+            return preset_disc_detainer_generic()
+        if family == "6":
+            return preset_disc_detainer_6()
+        if family == "7":
+            return preset_disc_detainer_7()
+        if family == "8":
+            return preset_disc_detainer_8()
+        raise ValueError("unknown disc_detainer family")
+    if name == "tubular":
+        if family in (None, "ace7"):
+            return preset_tubular_ace7()
+        if family == "ace8":
+            return preset_tubular_ace8()
+        raise ValueError("unknown tubular family")
+    if name == "wafer":
+        if family in (None, "automotive"):
+            return preset_wafer_automotive_generic()
+        if family == "depth4_len5":
+            return preset_wafer_depth4_len5()
+        if family == "depth5_len6":
+            return preset_wafer_depth5_len6()
+        raise ValueError("unknown wafer family")
     if name == "tubular_ace7":
         return preset_tubular_ace7()
     if name == "wafer_automotive":
@@ -467,6 +491,8 @@ def get_preset(name: str) -> KeySystem:
         return preset_wafer_depth5_len6()
     raise ValueError("unknown preset")
 
+    raise ValueError("unknown preset")
+
 
 def parse_seq(s: str, length: int) -> List[int]:
     parts = [int(x) for x in s.split(",") if x.strip() != ""]
@@ -480,10 +506,12 @@ def cli() -> None:
     sub = ap.add_subparsers(dest="cmd", required=True)
 
     ap_common = argparse.ArgumentParser(add_help=False)
-    ap_common.add_argument("--preset", choices=["us", "euro", "kwikset_6in5", "schlage_everest_full", "schlage_everest29_sl_tip", "best_a2_tip", "yale_keymark", "yale_ic_a2_tip", "assa_abloy_yale", "warded", "disc_detainer", "disc_detainer_6", "disc_detainer_7", "disc_detainer_8", "tubular_ace7", "tubular_ace8", "wafer_automotive", "wafer_depth4_len5", "wafer_depth5_len6"], default="us")
+    ap_common.add_argument("--preset", choices=["us", "euro", "kwikset_6in5", "schlage_everest_full", "schlage_everest29_sl_tip", "best_a2_tip", "yale_keymark", "yale_ic_a2_tip", "assa_abloy_yale", "warded", "disc_detainer", "tubular", "wafer", "disc_detainer_6", "disc_detainer_7", "disc_detainer_8", "tubular_ace7", "tubular_ace8", "wafer_automotive", "wafer_depth4_len5", "wafer_depth5_len6"], default="us")
     ap_common.add_argument("--pins", type=int)
     ap_common.add_argument("--depth-min", type=int)
     ap_common.add_argument("--depth-max", type=int)
+    ap_common.add_argument("--family")
+
     ap_common.add_argument("--macs", type=int)
     ap_common.add_argument("--no-cut", type=str)
     ap_common.add_argument("--ceilings", type=str)
@@ -502,15 +530,27 @@ def cli() -> None:
     c_enum = sub.add_parser("enumerate", parents=[ap_common])
     c_enum.add_argument("--max-repeat", type=int, default=4)
 
+    c_families = sub.add_parser("families")
+
     c_presets = sub.add_parser("presets")
 
     args = ap.parse_args()
 
     if args.cmd == "presets":
-        print("presets: us, euro, kwikset_6in5, schlage_everest_full, schlage_everest29_sl_tip, best_a2_tip, yale_keymark, yale_ic_a2_tip, assa_abloy_yale, warded, disc_detainer, disc_detainer_6, disc_detainer_7, disc_detainer_8, tubular_ace7, tubular_ace8, wafer_automotive, wafer_depth4_len5, wafer_depth5_len6")
+        print("presets: us, euro, kwikset_6in5, schlage_everest_full, schlage_everest29_sl_tip, best_a2_tip, yale_keymark, yale_ic_a2_tip, assa_abloy_yale, warded, disc_detainer, tubular, wafer")
+        print("legacy per-family aliases: disc_detainer_{6,7,8}, tubular_ace{7,8}, wafer_automotive, wafer_depth4_len5, wafer_depth5_len6")
         return
 
-    sys = get_preset(args.preset)
+    if args.cmd == "families":
+        print("families by preset:")
+        print("  warded: binary")
+        print("  disc_detainer: generic, 6, 7, 8")
+        print("  tubular: ace7, ace8")
+        print("  wafer: automotive, depth4_len5, depth5_len6")
+        return
+
+    sys = get_preset(args.preset, getattr(args, "family", None))
+
 
     if args.pins:
         sys.length = args.pins

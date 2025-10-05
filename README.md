@@ -109,6 +109,19 @@ Examples
 - python3 tool.py check --preset tubular_ace8 --seq 0,7,0,7,0,7,0,7
 - python3 tool.py check --preset wafer_depth4_len5 --seq 1,4,1,4,1
 
+Family selector
+- You can either use grouped presets with --family or legacy per-family aliases.
+- Grouped presets and families:
+  - warded: binary
+  - disc_detainer: generic, 6, 7, 8
+  - tubular: ace7, ace8
+  - wafer: automotive, depth4_len5, depth5_len6
+Examples (family selector)
+- python3 tool.py check --preset disc_detainer --family 6 --seq 0,6,0,6,0,6
+- python3 tool.py check --preset tubular --family ace8 --seq 0,7,0,7,0,7,0,7
+- python3 tool.py check --preset wafer --family depth4_len5 --seq 1,4,1,4,1
+- python3 tool.py check --preset warded --family binary --seq 0,1,0,1,0
+
 
 
 
