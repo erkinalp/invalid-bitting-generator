@@ -46,6 +46,7 @@ Model
   - min_first_station_index: earliest allowed station index for a cut
   - no_cut_mask: per-station boolean disallow
   - station_max_ceiling: per-station maximum depths
+  - max_consecutive_repeats: maximum allowed consecutive identical cuts
 - Validation checks these before and after MACS repair. Repair is linear-time propagation; no recursion.
 
 Presets
@@ -166,5 +167,5 @@ Run locally
 Notes
 - Euro EN 1303/18252 public summaries are performance-classification oriented and do not include cutting geometry; OEM documents govern practical station/stop constraints.
 - The model accepts future numeric station ceilings when OEM tables are found; examples here are illustrative but the Kwikset no‑cut and Schlage stop rules are directly cited.
-- Abloy Classic has an additional constraint (max 3 consecutive same cuts) that creates many terminally invalid sequences. This constraint is documented but not yet implemented in the validation logic.
+- Abloy Classic enforces a max_consecutive_repeats=3 constraint, meaning no more than 3 consecutive positions can have the same cut. This creates many terminally invalid sequences that cannot be fixed by deepening.
 - Lock types beyond pin tumblers (warded, tubular, wafer) use theoretical models based on general principles where formal specifications are unavailable.

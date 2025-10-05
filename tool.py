@@ -17,6 +17,7 @@ class KeySystem:
     stop_type: str = "shoulder"
     min_first_station_index: Optional[int] = None
     no_cut_mask: Optional[List[bool]] = None
+    max_consecutive_repeats: Optional[int] = None
 
     def validate_params(self) -> None:
         if self.d_min > self.d_max:
@@ -35,6 +36,8 @@ class KeySystem:
             raise ValueError("min_first_station_index out of range")
         if self.no_cut_mask and len(self.no_cut_mask) != self.length:
             raise ValueError("no_cut_mask length mismatch")
+        if self.max_consecutive_repeats is not None and self.max_consecutive_repeats < 1:
+            raise ValueError("max_consecutive_repeats must be >= 1")
 
 
 def is_within_range(seq: List[int], d_min: int, d_max: int) -> bool:
@@ -73,6 +76,20 @@ def violates_first_station(seq: List[int], sys: KeySystem) -> bool:
     for i in range(sys.min_first_station_index):
         if seq[i] > sys.d_min - 1:
             return True
+    return False
+
+
+def violates_consecutive_repeats(seq: List[int], sys: KeySystem) -> bool:
+    if sys.max_consecutive_repeats is None:
+        return False
+    count = 1
+    for i in range(1, len(seq)):
+        if seq[i] == seq[i - 1]:
+            count += 1
+            if count > sys.max_consecutive_repeats:
+                return True
+        else:
+            count = 1
     return False
 
 
@@ -158,12 +175,14 @@ def is_terminally_invalid(seq: List[int], sys: KeySystem) -> Tuple[bool, str]:
         return True, "forbidden/no-cut station cut present"
     if violates_station_ceiling(seq, sys):
         return True, "station-specific ceiling violated"
+    if violates_consecutive_repeats(seq, sys):
+        return True, "too many consecutive repeats of same cut"
 
     repaired = minimal_macs_repair_or_none(seq, sys)
     if repaired is None:
         return True, "cannot satisfy MACS and constraints via deepening-only"
     if macs_ok(repaired, sys.macs) and is_within_range(repaired, sys.d_min, sys.d_max):
-        if not violates_station_ceiling(repaired, sys) and not violates_forbidden_positions(repaired, sys) and not violates_no_cut_mask(repaired, sys) and not violates_first_station(repaired, sys):
+        if not violates_station_ceiling(repaired, sys) and not violates_forbidden_positions(repaired, sys) and not violates_no_cut_mask(repaired, sys) and not violates_first_station(repaired, sys) and not violates_consecutive_repeats(repaired, sys):
             return False, "repairable to a valid bitting by deepening"
     return True, "unknown terminal condition"
 
@@ -351,6 +370,7 @@ def preset_disc_abloy_classic_6(length: int = 6) -> KeySystem:
         length=length,
         stop_type="shoulder",
         min_first_station_index=0,
+        max_consecutive_repeats=3,
     )
 
 
@@ -363,6 +383,7 @@ def preset_disc_abloy_classic_10(length: int = 10) -> KeySystem:
         length=length,
         stop_type="shoulder",
         min_first_station_index=0,
+        max_consecutive_repeats=3,
     )
 
 
