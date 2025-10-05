@@ -49,6 +49,24 @@ Model
   - max_consecutive_repeats: maximum allowed consecutive identical cuts
 - Validation checks these before and after MACS repair. Repair is linear-time propagation; no recursion.
 
+Theoretical Foundation
+The tool now supports two equivalent implementations for detecting terminally invalid bittings:
+
+1. Iterative constraint propagation (default): Forward and backward passes that propagate MACS constraints until convergence. O(n²) time complexity in worst case.
+
+2. Difference constraints solver (--use-bellman-ford): Based on the theory that terminal invalidity is equivalent to membership in the complement of the upward-closure of valid bittings. This formulation models the problem as a difference constraint system where:
+   - Variables y[i] represent (possibly deepened) depths at each station
+   - Constraints include: y[i] >= x[i] (deepening only), y[i] <= ceiling[i] (bounds), |y[i+1] - y[i]| <= MACS (adjacency)
+   - The system is solved using constraint propagation inspired by Bellman-Ford shortest paths algorithm
+   - A bitting is terminally invalid if and only if no solution exists (negative cycle analog)
+
+Key insight: Deepening-only repair is a constraint satisfaction problem. MACS + global bounds alone is monotone under deepening (always repairable), but additional constraints like forbidden stations, station-specific ceilings, and first-station rules break monotonicity and create terminal invalidity.
+
+References:
+- Difference constraints: Cormen et al., Introduction to Algorithms, Chapter 24.4
+- Upward-closure interpretation: Order theory, upper sets (Wikipedia: https://en.wikipedia.org/wiki/Upper_set)
+- MACS specification: Allegion Knowledge Base (https://kc.allegion.com/kb/article/what-is-the-maximum-adjacent-cut-specification-or-macs/)
+
 Presets
 
 Pin Tumbler Locks
@@ -233,8 +251,12 @@ CLI
   python3 tool.py presets
 - Check:
   python3 tool.py check --preset kwikset_6in5 --seq 2,1,1,1,1,1
+- Check with Bellman-Ford solver:
+  python3 tool.py check --preset us --seq 1,7,1,1,1 --use-bellman-ford
 - Repair:
   python3 tool.py repair --preset us --pins 5 --seq 1,7,1,1,1
+- Repair with Bellman-Ford solver:
+  python3 tool.py repair --preset us --seq 1,7,1,1,1 --use-bellman-ford
 - Generate terminal examples:
   python3 tool.py list-terminal --preset schlage_everest29_sl_tip --limit 5
 - BEST A2 tip-stop check:

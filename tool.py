@@ -4,6 +4,15 @@ import argparse
 from dataclasses import dataclass
 from typing import List, Optional, Tuple
 
+try:
+    from constraint_solver import (
+        repair_key_bitting_bellman_ford,
+        is_terminally_invalid_bellman_ford_final
+    )
+    HAS_BELLMAN_FORD = True
+except ImportError:
+    HAS_BELLMAN_FORD = False
+
 
 @dataclass
 class KeySystem:
@@ -97,7 +106,16 @@ def macs_ok(seq: List[int], macs: int) -> bool:
     return all(abs(seq[i + 1] - seq[i]) <= macs for i in range(len(seq) - 1))
 
 
-def minimal_macs_repair_or_none(seq: List[int], sys: KeySystem) -> Optional[List[int]]:
+def minimal_macs_repair_or_none(seq: List[int], sys: KeySystem, use_bellman_ford: bool = False) -> Optional[List[int]]:
+    if use_bellman_ford and HAS_BELLMAN_FORD:
+        feasible, solution, reason = repair_key_bitting_bellman_ford(
+            seq, sys.d_min, sys.d_max, sys.macs,
+            sys.station_max_ceiling, sys.forbidden_positions,
+            sys.no_cut_mask, sys.min_first_station_index,
+            sys.max_consecutive_repeats
+        )
+        return solution if feasible else None
+    
     n = sys.length
     if len(seq) != n:
         raise ValueError("sequence length mismatch")
@@ -164,7 +182,15 @@ def minimal_macs_repair_or_none(seq: List[int], sys: KeySystem) -> Optional[List
     return y
 
 
-def is_terminally_invalid(seq: List[int], sys: KeySystem) -> Tuple[bool, str]:
+def is_terminally_invalid(seq: List[int], sys: KeySystem, use_bellman_ford: bool = False) -> Tuple[bool, str]:
+    if use_bellman_ford and HAS_BELLMAN_FORD:
+        return is_terminally_invalid_bellman_ford_final(
+            seq, sys.d_min, sys.d_max, sys.macs, sys.length,
+            sys.station_max_ceiling, sys.forbidden_positions,
+            sys.no_cut_mask, sys.min_first_station_index,
+            sys.max_consecutive_repeats
+        )
+    
     if len(seq) != sys.length:
         return True, "length mismatch"
     if not is_within_range(seq, sys.d_min, sys.d_max):
@@ -986,6 +1012,7 @@ def cli() -> None:
     ap_common.add_argument("--ceilings", type=str)
     ap_common.add_argument("--min-first-station", type=int)
     ap_common.add_argument("--stop-type", choices=["shoulder", "tip"])
+    ap_common.add_argument("--use-bellman-ford", action="store_true", help="Use Bellman-Ford constraint solver (more theoretically sound)")
 
     c_check = sub.add_parser("check", parents=[ap_common])
     c_check.add_argument("--seq", required=True, type=str)
@@ -1045,13 +1072,15 @@ def cli() -> None:
 
     sys.validate_params()
 
+    use_bf = getattr(args, 'use_bellman_ford', False)
+    
     if args.cmd in ("check", "repair"):
         seq = parse_seq(args.seq, sys.length)
         if args.cmd == "check":
-            term, reason = is_terminally_invalid(seq, sys)
+            term, reason = is_terminally_invalid(seq, sys, use_bellman_ford=use_bf)
             print(f"terminal={term} reason={reason}")
         else:
-            repaired = minimal_macs_repair_or_none(seq, sys)
+            repaired = minimal_macs_repair_or_none(seq, sys, use_bellman_ford=use_bf)
             print(f"repaired={repaired}")
         return
 
