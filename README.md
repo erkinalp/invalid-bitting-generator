@@ -71,6 +71,34 @@ CLI
   python3 tool.py list-terminal --preset yale_keymark --limit 5
 - ASSA ABLOY Yale terminal examples:
   python3 tool.py list-terminal --preset assa_abloy_yale --limit 5
+Other lock types: shape/bitting codes
+- Warded locks
+  - Keys bypass or engage fixed wards; effectively a binary presence/absence of material rather than depth increments. Modeled as d_min=0, d_max=1 with shoulder stop; MACS is not meaningful here but retained as a parameter for the engine.
+  - Example: python3 tool.py check --preset warded --pins 5 --seq 0,1,0,1,0
+  - Reference: Warded lock overview (e.g., LockWiki/Wikipedia, general locksmith texts).
+
+- Disc tumbler (disc detainer)
+  - Keys have angular “depths” corresponding to disc rotation angles (commonly 0–6/0–7). Modeled as discrete levels d_min=0..d_max=6, tip stop with the first station from the tip, and MACS approximating maximum adjacent angle delta.
+  - Example: python3 tool.py list-terminal --preset disc_detainer --limit 5
+  - Reference: Public disc-detainer overviews (e.g., LockWiki: Disc-detainer lock); OEM specifics vary by family.
+
+- Tubular (ACE 7-pin)
+  - Common 7-pin tubular system with depths 0–7. Modeled with tip stop and first station at index 1 to reflect tip gauging.
+  - Example: python3 tool.py check --preset tubular_ace7 --seq 0,3,5,1,7,2,0
+  - Reference: Public tubular lock overviews (e.g., LockWiki: Tubular lock).
+
+- Wafer tumbler (automotive generic)
+  - Automotive wafer systems often use 4–5 depth levels and 5–8 wafers depending on OEM. Modeled as d_min=1..d_max=5, shoulder stop, default 6 wafers.
+  - Example: python3 tool.py check --preset wafer_automotive --seq 1,5,1,5,1,5
+  - Reference: General automotive wafer keying overviews in locksmith manuals.
+
+Presets added
+- warded: Binary station model of ward presence/absence.
+- disc_detainer: Generic disc-detainer angle-level model.
+- tubular_ace7: 7-pin tubular (ACE) default.
+- wafer_automotive: Generic 6-wafer automotive-style model.
+
+
 
 
   python3 tool.py list-terminal --preset schlage_everest29_sl_tip --limit 5

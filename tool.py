@@ -291,6 +291,54 @@ def preset_assa_abloy_yale_conventional(length: int = 6) -> KeySystem:
         stop_type="shoulder",
         min_first_station_index=0,
     )
+def preset_warded(length: int = 5) -> KeySystem:
+    return KeySystem(
+        name=f"Warded_{length}",
+        d_min=0,
+        d_max=1,
+        macs=1,
+        length=length,
+        stop_type="shoulder",
+        min_first_station_index=0,
+    )
+
+
+def preset_disc_detainer_generic(length: int = 7) -> KeySystem:
+    return KeySystem(
+        name=f"DiscDetainer_Generic_{length}",
+        d_min=0,
+        d_max=6,
+        macs=3,
+        length=length,
+        stop_type="tip",
+        min_first_station_index=1,
+    )
+
+
+def preset_tubular_ace7(length: int = 7) -> KeySystem:
+    return KeySystem(
+        name=f"Tubular_ACE7_{length}",
+        d_min=0,
+        d_max=7,
+        macs=4,
+        length=length,
+        stop_type="tip",
+        min_first_station_index=1,
+    )
+
+
+def preset_wafer_automotive_generic(length: int = 6) -> KeySystem:
+    return KeySystem(
+        name=f"Wafer_Automotive_Generic_{length}",
+        d_min=1,
+        d_max=5,
+        macs=2,
+        length=length,
+        stop_type="shoulder",
+        min_first_station_index=0,
+    )
+
+
 
 
 
@@ -325,6 +373,14 @@ def get_preset(name: str) -> KeySystem:
         return preset_yale_ic_a2_tip()
     if name == "assa_abloy_yale":
         return preset_assa_abloy_yale_conventional()
+    if name == "warded":
+        return preset_warded()
+    if name == "disc_detainer":
+        return preset_disc_detainer_generic()
+    if name == "tubular_ace7":
+        return preset_tubular_ace7()
+    if name == "wafer_automotive":
+        return preset_wafer_automotive_generic()
     raise ValueError("unknown preset")
 
 
@@ -340,7 +396,7 @@ def cli() -> None:
     sub = ap.add_subparsers(dest="cmd", required=True)
 
     ap_common = argparse.ArgumentParser(add_help=False)
-    ap_common.add_argument("--preset", choices=["us", "euro", "kwikset_6in5", "schlage_everest_full", "schlage_everest29_sl_tip", "best_a2_tip", "yale_keymark", "yale_ic_a2_tip", "assa_abloy_yale"], default="us")
+    ap_common.add_argument("--preset", choices=["us", "euro", "kwikset_6in5", "schlage_everest_full", "schlage_everest29_sl_tip", "best_a2_tip", "yale_keymark", "yale_ic_a2_tip", "assa_abloy_yale", "warded", "disc_detainer", "tubular_ace7", "wafer_automotive"], default="us")
     ap_common.add_argument("--pins", type=int)
     ap_common.add_argument("--depth-min", type=int)
     ap_common.add_argument("--depth-max", type=int)
@@ -367,7 +423,7 @@ def cli() -> None:
     args = ap.parse_args()
 
     if args.cmd == "presets":
-        print("presets: us, euro, kwikset_6in5, schlage_everest_full, schlage_everest29_sl_tip, best_a2_tip, yale_keymark, yale_ic_a2_tip, assa_abloy_yale")
+        print("presets: us, euro, kwikset_6in5, schlage_everest_full, schlage_everest29_sl_tip, best_a2_tip, yale_keymark, yale_ic_a2_tip, assa_abloy_yale, warded, disc_detainer, tubular_ace7, wafer_automotive")
         return
 
     sys = get_preset(args.preset)
