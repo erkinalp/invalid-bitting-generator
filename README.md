@@ -62,10 +62,7 @@ Pin Tumbler Locks
 - yale_ic_a2_tip: Yale SFIC A2-style tip-read; min_first_stn=1
 - assa_abloy_yale: Yale conventional under ASSA ABLOY catalog; shoulder stop
 
-Warded Locks
-- warded_binary: 4-position binary warded lock, depths 0..1 (cut/no-cut), MACS 1
-  - Simple ward configurations with binary notch patterns
-  - Historical design, used in low-security applications
+Warded Locks (Realistic Variants with Terminal Invalidity)
 - warded_multiward_4: 6-position multiward lock, depths 0..3, MACS 3
   - Multiple ward depths for increased complexity
   - Intermediate security warded lock configuration
@@ -84,6 +81,28 @@ Warded Locks
 - warded_padlock_4ward: 4-position padlock warded lock, depths 0..3, MACS 3
   - Common Master Lock style warded padlock
   - 4-ward configuration for outdoor applications
+- warded_lever_tumbler_5: 5-position lever tumbler warded lock, depths 0..4, MACS 2
+  - Lever-based warding mechanism with 5 depth levels
+  - Creates terminal invalidity due to MACS < depth range
+- warded_master_padlock: 4-position Master-style padlock, depths 0..5, MACS 2
+  - Realistic Master Lock warded padlock configuration
+  - 6 depth levels with restrictive MACS creates terminal invalidity
+- warded_door_mortise: 6-position door mortise warded lock, depths 0..7, MACS 3
+  - Traditional door lock ward configuration
+  - 8 depth levels with medium MACS for realistic complexity
+- warded_cabinet_complex: 5-position complex cabinet lock, depths 0..6, MACS 2
+  - High-complexity cabinet warded lock
+  - 7 depth levels with low MACS creates many terminal sequences
+
+Warded Locks (NO Terminal Invalidity - Educational)
+- warded_binary: 4-position binary warded lock, depths 0..1, MACS 1
+  - Simple ward configurations with binary notch patterns
+  - NO terminal invalidity: depth range equals MACS
+  - Educational example showing boundary case
+- warded_skeleton_simple: 3-position skeleton key system, depths 0..1, MACS 1
+  - Simplified ward pattern for skeleton key compatibility
+  - NO terminal invalidity: minimal depth range equals MACS
+  - Educational example of lock with no invalid configurations
 
 Disc Tumbler Locks (Abloy)
 - disc_abloy_classic_6: 6-disc Abloy Classic, depths 0..5 (6 positions), MACS 5
@@ -194,6 +213,20 @@ Wafer Tumbler Locks
   - USPS and residential mailbox standard wafer lock
   - Weather-resistant low-security configuration
   - Simple 5-cut pattern for postal applications
+
+Educational Presets (NO Terminal Invalidity)
+- simple_no_terminal_2depth: 4-position lock, depths 0..1, MACS 1
+  - Minimal lock with 2 depth levels
+  - NO terminal invalidity: any sequence can be made valid
+  - Demonstrates boundary case where depth range equals MACS
+- simple_no_terminal_3depth: 4-position lock, depths 0..2, MACS 2
+  - Simple lock with 3 depth levels
+  - NO terminal invalidity: MACS equals depth range
+  - Educational example showing when terminal invalidity cannot exist
+- simple_no_terminal_equal_macs: 5-position lock, depths 0..5, MACS 5
+  - Lock where MACS equals maximum depth
+  - NO terminal invalidity: any depth transition is acceptable
+  - Illustrates the mathematical condition where terminal invalidity is impossible
 
 CLI
 - Show presets:

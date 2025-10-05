@@ -771,6 +771,90 @@ def preset_wafer_mailbox_5(length: int = 5) -> KeySystem:
     )
 
 
+def preset_simple_no_terminal_2depth(length: int = 4) -> KeySystem:
+    return KeySystem(
+        name=f"Simple_NoTerminal_2depth_{length}",
+        d_min=0,
+        d_max=1,
+        macs=1,
+        length=length,
+        stop_type="shoulder",
+        min_first_station_index=0,
+    )
+
+
+def preset_simple_no_terminal_3depth(length: int = 4) -> KeySystem:
+    return KeySystem(
+        name=f"Simple_NoTerminal_3depth_{length}",
+        d_min=0,
+        d_max=2,
+        macs=2,
+        length=length,
+        stop_type="shoulder",
+        min_first_station_index=0,
+    )
+
+
+def preset_simple_no_terminal_equal_macs(length: int = 5) -> KeySystem:
+    return KeySystem(
+        name=f"Simple_NoTerminal_EqualMACS_{length}",
+        d_min=0,
+        d_max=5,
+        macs=5,
+        length=length,
+        stop_type="shoulder",
+        min_first_station_index=0,
+    )
+
+
+def preset_warded_lever_tumbler_5(length: int = 5) -> KeySystem:
+    return KeySystem(
+        name=f"Warded_LeverTumbler5_{length}",
+        d_min=0,
+        d_max=4,
+        macs=2,
+        length=length,
+        stop_type="shoulder",
+        min_first_station_index=0,
+    )
+
+
+def preset_warded_master_padlock(length: int = 4) -> KeySystem:
+    return KeySystem(
+        name=f"Warded_MasterPadlock_{length}",
+        d_min=0,
+        d_max=5,
+        macs=2,
+        length=length,
+        stop_type="shoulder",
+        min_first_station_index=0,
+    )
+
+
+def preset_warded_door_mortise(length: int = 6) -> KeySystem:
+    return KeySystem(
+        name=f"Warded_DoorMortise_{length}",
+        d_min=0,
+        d_max=7,
+        macs=3,
+        length=length,
+        stop_type="shoulder",
+        min_first_station_index=0,
+    )
+
+
+def preset_warded_cabinet_complex(length: int = 5) -> KeySystem:
+    return KeySystem(
+        name=f"Warded_CabinetComplex_{length}",
+        d_min=0,
+        d_max=6,
+        macs=2,
+        length=length,
+        stop_type="shoulder",
+        min_first_station_index=0,
+    )
+
+
 def get_preset(name: str) -> KeySystem:
     if name == "us":
         return preset_us()
@@ -864,6 +948,20 @@ def get_preset(name: str) -> KeySystem:
         return preset_wafer_cabinet_6()
     if name == "wafer_mailbox_5":
         return preset_wafer_mailbox_5()
+    if name == "simple_no_terminal_2depth":
+        return preset_simple_no_terminal_2depth()
+    if name == "simple_no_terminal_3depth":
+        return preset_simple_no_terminal_3depth()
+    if name == "simple_no_terminal_equal_macs":
+        return preset_simple_no_terminal_equal_macs()
+    if name == "warded_lever_tumbler_5":
+        return preset_warded_lever_tumbler_5()
+    if name == "warded_master_padlock":
+        return preset_warded_master_padlock()
+    if name == "warded_door_mortise":
+        return preset_warded_door_mortise()
+    if name == "warded_cabinet_complex":
+        return preset_warded_cabinet_complex()
     raise ValueError("unknown preset")
 
 
@@ -879,7 +977,7 @@ def cli() -> None:
     sub = ap.add_subparsers(dest="cmd", required=True)
 
     ap_common = argparse.ArgumentParser(add_help=False)
-    ap_common.add_argument("--preset", choices=["us", "euro", "kwikset_6in5", "schlage_everest_full", "schlage_everest29_sl_tip", "best_a2_tip", "yale_keymark", "yale_ic_a2_tip", "assa_abloy_yale", "warded_binary", "warded_multiward_4", "warded_multiward_8", "warded_lever_4", "warded_lever_6", "warded_skeleton_simple", "warded_padlock_4ward", "disc_abloy_classic_6", "disc_abloy_classic_10", "disc_abloy_protec2_6", "disc_abloy_protec2_10", "disc_abloy_disklock_6", "disc_abloy_disklock_10", "disc_abloy_exec_6", "disc_abloy_exec_10", "disc_abloy_profile_6", "disc_abloy_profile_10", "disc_abloy_protec_8", "tubular_4pin", "tubular_6pin", "tubular_7pin", "tubular_8pin", "tubular_10pin", "tubular_chicago_7pin", "tubular_ace_8pin", "wafer_5wafer_shallow", "wafer_5wafer_deep", "wafer_6wafer_auto", "wafer_10wafer_double", "wafer_gm_sidebar_10", "wafer_ford_8cut", "wafer_ford_10cut", "wafer_chrysler_7cut", "wafer_chrysler_10cut", "wafer_desk_drawer_5", "wafer_cabinet_6", "wafer_mailbox_5"], default="us")
+    ap_common.add_argument("--preset", choices=["us", "euro", "kwikset_6in5", "schlage_everest_full", "schlage_everest29_sl_tip", "best_a2_tip", "yale_keymark", "yale_ic_a2_tip", "assa_abloy_yale", "warded_binary", "warded_multiward_4", "warded_multiward_8", "warded_lever_4", "warded_lever_6", "warded_skeleton_simple", "warded_padlock_4ward", "warded_lever_tumbler_5", "warded_master_padlock", "warded_door_mortise", "warded_cabinet_complex", "disc_abloy_classic_6", "disc_abloy_classic_10", "disc_abloy_protec2_6", "disc_abloy_protec2_10", "disc_abloy_disklock_6", "disc_abloy_disklock_10", "disc_abloy_exec_6", "disc_abloy_exec_10", "disc_abloy_profile_6", "disc_abloy_profile_10", "disc_abloy_protec_8", "tubular_4pin", "tubular_6pin", "tubular_7pin", "tubular_8pin", "tubular_10pin", "tubular_chicago_7pin", "tubular_ace_8pin", "wafer_5wafer_shallow", "wafer_5wafer_deep", "wafer_6wafer_auto", "wafer_10wafer_double", "wafer_gm_sidebar_10", "wafer_ford_8cut", "wafer_ford_10cut", "wafer_chrysler_7cut", "wafer_chrysler_10cut", "wafer_desk_drawer_5", "wafer_cabinet_6", "wafer_mailbox_5", "simple_no_terminal_2depth", "simple_no_terminal_3depth", "simple_no_terminal_equal_macs"], default="us")
     ap_common.add_argument("--pins", type=int)
     ap_common.add_argument("--depth-min", type=int)
     ap_common.add_argument("--depth-max", type=int)
@@ -907,10 +1005,12 @@ def cli() -> None:
 
     if args.cmd == "presets":
         print("Pin tumbler presets: us, euro, kwikset_6in5, schlage_everest_full, schlage_everest29_sl_tip, best_a2_tip, yale_keymark, yale_ic_a2_tip, assa_abloy_yale")
-        print("Warded lock presets: warded_binary, warded_multiward_4, warded_multiward_8, warded_lever_4, warded_lever_6, warded_skeleton_simple, warded_padlock_4ward")
+        print("Warded lock presets (with terminal invalidity): warded_multiward_4, warded_multiward_8, warded_lever_4, warded_lever_6, warded_padlock_4ward, warded_lever_tumbler_5, warded_master_padlock, warded_door_mortise, warded_cabinet_complex")
+        print("Warded lock presets (NO terminal invalidity): warded_binary, warded_skeleton_simple")
         print("Disc tumbler presets: disc_abloy_classic_6, disc_abloy_classic_10, disc_abloy_protec2_6, disc_abloy_protec2_10, disc_abloy_disklock_6, disc_abloy_disklock_10, disc_abloy_exec_6, disc_abloy_exec_10, disc_abloy_profile_6, disc_abloy_profile_10, disc_abloy_protec_8")
         print("Tubular lock presets: tubular_4pin, tubular_6pin, tubular_7pin, tubular_8pin, tubular_10pin, tubular_chicago_7pin, tubular_ace_8pin")
         print("Wafer tumbler presets: wafer_5wafer_shallow, wafer_5wafer_deep, wafer_6wafer_auto, wafer_10wafer_double, wafer_gm_sidebar_10, wafer_ford_8cut, wafer_ford_10cut, wafer_chrysler_7cut, wafer_chrysler_10cut, wafer_desk_drawer_5, wafer_cabinet_6, wafer_mailbox_5")
+        print("Educational presets (NO terminal invalidity): simple_no_terminal_2depth, simple_no_terminal_3depth, simple_no_terminal_equal_macs")
         return
 
     sys = get_preset(args.preset)
