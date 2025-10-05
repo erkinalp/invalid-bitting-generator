@@ -338,6 +338,78 @@ def preset_wafer_automotive_generic(length: int = 6) -> KeySystem:
         min_first_station_index=0,
     )
 
+def preset_disc_detainer_6(length: int = 6) -> KeySystem:
+    return KeySystem(
+        name=f"DiscDetainer_6_{length}",
+        d_min=0,
+        d_max=6,
+        macs=3,
+        length=length,
+        stop_type="tip",
+        min_first_station_index=1,
+    )
+
+
+def preset_disc_detainer_7(length: int = 7) -> KeySystem:
+    return KeySystem(
+        name=f"DiscDetainer_7_{length}",
+        d_min=0,
+        d_max=6,
+        macs=3,
+        length=length,
+        stop_type="tip",
+        min_first_station_index=1,
+    )
+
+
+def preset_disc_detainer_8(length: int = 8) -> KeySystem:
+    return KeySystem(
+        name=f"DiscDetainer_8_{length}",
+        d_min=0,
+        d_max=6,
+        macs=3,
+        length=length,
+        stop_type="tip",
+        min_first_station_index=1,
+    )
+
+
+def preset_tubular_ace8(length: int = 8) -> KeySystem:
+    return KeySystem(
+        name=f"Tubular_ACE8_{length}",
+        d_min=0,
+        d_max=7,
+        macs=4,
+        length=length,
+        stop_type="tip",
+        min_first_station_index=1,
+    )
+
+
+def preset_wafer_depth4_len5() -> KeySystem:
+    return KeySystem(
+        name="Wafer_Depth4_Len5",
+        d_min=1,
+        d_max=4,
+        macs=2,
+        length=5,
+        stop_type="shoulder",
+        min_first_station_index=0,
+    )
+
+
+def preset_wafer_depth5_len6() -> KeySystem:
+    return KeySystem(
+        name="Wafer_Depth5_Len6",
+        d_min=1,
+        d_max=5,
+        macs=2,
+        length=6,
+        stop_type="shoulder",
+        min_first_station_index=0,
+    )
+
+
 
 
 
@@ -381,6 +453,18 @@ def get_preset(name: str) -> KeySystem:
         return preset_tubular_ace7()
     if name == "wafer_automotive":
         return preset_wafer_automotive_generic()
+    if name == "disc_detainer_6":
+        return preset_disc_detainer_6()
+    if name == "disc_detainer_7":
+        return preset_disc_detainer_7()
+    if name == "disc_detainer_8":
+        return preset_disc_detainer_8()
+    if name == "tubular_ace8":
+        return preset_tubular_ace8()
+    if name == "wafer_depth4_len5":
+        return preset_wafer_depth4_len5()
+    if name == "wafer_depth5_len6":
+        return preset_wafer_depth5_len6()
     raise ValueError("unknown preset")
 
 
@@ -396,7 +480,7 @@ def cli() -> None:
     sub = ap.add_subparsers(dest="cmd", required=True)
 
     ap_common = argparse.ArgumentParser(add_help=False)
-    ap_common.add_argument("--preset", choices=["us", "euro", "kwikset_6in5", "schlage_everest_full", "schlage_everest29_sl_tip", "best_a2_tip", "yale_keymark", "yale_ic_a2_tip", "assa_abloy_yale", "warded", "disc_detainer", "tubular_ace7", "wafer_automotive"], default="us")
+    ap_common.add_argument("--preset", choices=["us", "euro", "kwikset_6in5", "schlage_everest_full", "schlage_everest29_sl_tip", "best_a2_tip", "yale_keymark", "yale_ic_a2_tip", "assa_abloy_yale", "warded", "disc_detainer", "disc_detainer_6", "disc_detainer_7", "disc_detainer_8", "tubular_ace7", "tubular_ace8", "wafer_automotive", "wafer_depth4_len5", "wafer_depth5_len6"], default="us")
     ap_common.add_argument("--pins", type=int)
     ap_common.add_argument("--depth-min", type=int)
     ap_common.add_argument("--depth-max", type=int)
@@ -423,7 +507,7 @@ def cli() -> None:
     args = ap.parse_args()
 
     if args.cmd == "presets":
-        print("presets: us, euro, kwikset_6in5, schlage_everest_full, schlage_everest29_sl_tip, best_a2_tip, yale_keymark, yale_ic_a2_tip, assa_abloy_yale, warded, disc_detainer, tubular_ace7, wafer_automotive")
+        print("presets: us, euro, kwikset_6in5, schlage_everest_full, schlage_everest29_sl_tip, best_a2_tip, yale_keymark, yale_ic_a2_tip, assa_abloy_yale, warded, disc_detainer, disc_detainer_6, disc_detainer_7, disc_detainer_8, tubular_ace7, tubular_ace8, wafer_automotive, wafer_depth4_len5, wafer_depth5_len6")
         return
 
     sys = get_preset(args.preset)

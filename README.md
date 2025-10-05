@@ -98,6 +98,18 @@ Presets added
 - tubular_ace7: 7-pin tubular (ACE) default.
 - wafer_automotive: Generic 6-wafer automotive-style model.
 
+Family presets
+- Disc detainer: disc_detainer_6, disc_detainer_7, disc_detainer_8 (levels 0–6; tip stop)
+- Tubular: tubular_ace7, tubular_ace8 (levels 0–7; tip stop)
+- Wafer: wafer_depth4_len5 (1–4, 5 wafers), wafer_depth5_len6 (1–5, 6 wafers)
+
+Examples
+- python3 tool.py presets
+- python3 tool.py check --preset disc_detainer_6 --seq 0,6,0,6,0,6
+- python3 tool.py check --preset tubular_ace8 --seq 0,7,0,7,0,7,0,7
+- python3 tool.py check --preset wafer_depth4_len5 --seq 1,4,1,4,1
+
+
 
 
 
