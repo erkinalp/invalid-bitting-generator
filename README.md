@@ -136,3 +136,73 @@ Run locally
 Notes
 - Euro EN 1303/18252 public summaries are performance-classification oriented and do not include cutting geometry; OEM documents govern practical station/stop constraints.
 - The model accepts future numeric station ceilings when OEM tables are found; examples here are illustrative but the Kwikset no‑cut and Schlage stop rules are directly cited.
+Consistent details for non–pin tumbler families
+
+Warded
+- Summary: Keys navigate fixed wards. Modeled as binary presence/absence at stations.
+- Parameters (defaults)
+  - d_min..d_max: 0..1
+  - macs: 1 (placeholder to enable engine flow)
+  - length: 5
+  - stop_type: shoulder
+  - min_first_station_index: 0
+- Presets
+  - warded
+- Examples
+  - python3 tool.py check --preset warded --pins 5 --seq 0,1,0,1,0
+- References
+  - LockWiki/Wikipedia: Warded lock overviews
+
+Disc detainer (disc tumbler)
+- Summary: Angular disc positions represented as discrete levels; gauged from the tip.
+- Parameters (defaults)
+  - d_min..d_max: 0..6
+  - macs: 3 (approximate limit on adjacent angular difference)
+  - stop_type: tip
+  - min_first_station_index: 1
+- Presets
+  - disc_detainer (generic)
+  - disc_detainer_6
+  - disc_detainer_7
+  - disc_detainer_8
+- Examples
+  - python3 tool.py list-terminal --preset disc_detainer --limit 5
+  - python3 tool.py check --preset disc_detainer_6 --seq 0,6,0,6,0,6
+- References
+  - LockWiki: Disc-detainer lock (general overview)
+
+Tubular (ACE)
+- Summary: Radial pin systems, typically 7 or 8 pins; gauged from the tip.
+- Parameters (defaults)
+  - d_min..d_max: 0..7
+  - macs: 4
+  - stop_type: tip
+  - min_first_station_index: 1
+- Presets
+  - tubular_ace7
+  - tubular_ace8
+- Examples
+  - python3 tool.py check --preset tubular_ace7 --seq 0,7,0,7,0,7,0
+  - python3 tool.py check --preset tubular_ace8 --seq 0,7,0,7,0,7,0,7
+- References
+  - LockWiki: Tubular lock (general overview)
+
+Wafer tumbler (automotive)
+- Summary: Wafer stacks with discrete depth levels; commonly shoulder–gauged.
+- Parameters (defaults)
+  - Generic: d_min..d_max: 1..5, macs: 2, stop_type: shoulder, min_first_station_index: 0
+- Presets
+  - wafer_automotive (generic 6 wafers, 1..5)
+  - wafer_depth4_len5 (5 wafers, 1..4)
+  - wafer_depth5_len6 (6 wafers, 1..5)
+- Examples
+  - python3 tool.py check --preset wafer_automotive --seq 1,5,1,5,1,5
+  - python3 tool.py check --preset wafer_depth4_len5 --seq 1,4,1,4,1
+- References
+  - General automotive wafer lock overviews in locksmith manuals
+
+Preset matrix
+- Warded: warded
+- Disc detainer: disc_detainer, disc_detainer_6, disc_detainer_7, disc_detainer_8
+- Tubular: tubular_ace7, tubular_ace8
+- Wafer: wafer_automotive, wafer_depth4_len5, wafer_depth5_len6
