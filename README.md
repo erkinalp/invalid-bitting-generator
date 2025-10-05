@@ -5,7 +5,11 @@ What’s new
   - No-cut/forbidden stations
   - Station-specific depth ceilings
   - Stop type (shoulder vs tip) and minimum first station
-- Added presets: US, Euro, Kwikset SmartKey 6-key used in 5-pin plug, Schlage Everest full-size, Schlage Everest 29 SL tip-read, BEST A2 tip, Yale KeyMark conventional, Yale IC A2 tip, ASSA ABLOY Yale conventional
+- Added presets for pin tumbler locks: US, Euro, Kwikset SmartKey 6-key used in 5-pin plug, Schlage Everest full-size, Schlage Everest 29 SL tip-read, BEST A2 tip, Yale KeyMark conventional, Yale IC A2 tip, ASSA ABLOY Yale conventional
+- Added presets for warded locks: binary (2-depth), multiward-4 (4-depth), multiward-8 (8-depth)
+- Added presets for disc tumbler locks: Abloy Classic (6-disc and 10-disc), Abloy Protec2 (6-disc and 10-disc)
+- Added presets for tubular locks: 7-pin, 8-pin, and 10-pin variants
+- Added presets for wafer tumbler locks: 5-wafer shallow/deep, 6-wafer automotive, 10-wafer double-sided
 - Added CLI: check, repair, list-terminal, enumerate, presets
 
 Key findings with citations
@@ -45,6 +49,8 @@ Model
 - Validation checks these before and after MACS repair. Repair is linear-time propagation; no recursion.
 
 Presets
+
+Pin Tumbler Locks
 - us: generic 5-pin, depths 1..7, MACS 2
 - euro: generic 5-pin, depths 1..10, MACS 2
 - kwikset_6in5: 6-pin key used in 5-pin plug; station 0 is no-cut
@@ -55,6 +61,59 @@ Presets
 - yale_ic_a2_tip: Yale SFIC A2-style tip-read; min_first_stn=1
 - assa_abloy_yale: Yale conventional under ASSA ABLOY catalog; shoulder stop
 
+Warded Locks
+- warded_binary: 4-position binary warded lock, depths 0..1 (cut/no-cut), MACS 1
+  - Simple ward configurations with binary notch patterns
+  - Historical design, used in low-security applications
+- warded_multiward_4: 6-position multiward lock, depths 0..3, MACS 3
+  - Multiple ward depths for increased complexity
+  - Intermediate security warded lock configuration
+- warded_multiward_8: 6-position multiward lock, depths 0..7, MACS 7
+  - Complex ward patterns with 8 depth variations
+  - Maximum complexity for warded lock designs
+
+Disc Tumbler Locks (Abloy)
+- disc_abloy_classic_6: 6-disc Abloy Classic, depths 0..6, MACS 6
+  - Original Abloy design with rotating discs
+  - Semi-cylindrical key with angled notches (180° to 270° holes)
+  - Reference: https://en.wikipedia.org/wiki/Disc_tumbler_lock
+- disc_abloy_classic_10: 10-disc Abloy Classic, depths 0..9, MACS 9
+  - Extended disc count for higher security
+  - Uses same principle as 6-disc with more positions
+- disc_abloy_protec2_6: 6-disc Abloy Protec2, depths 0..9, MACS 8
+  - Modern high-security disc detainer design
+  - Improved false gate protection
+- disc_abloy_protec2_10: 10-disc Abloy Protec2, depths 0..11, MACS 10
+  - Maximum security disc tumbler configuration
+  - Extended depth range and disc count
+
+Tubular Pin Tumbler Locks
+- tubular_7pin: 7-pin tubular lock, depths 0..9, MACS 8
+  - Circular pin arrangement (common in vending machines)
+  - Also known as Ace lock or circle pin tumbler
+  - Reference: https://en.wikipedia.org/wiki/Tubular_pin_tumbler_lock
+- tubular_8pin: 8-pin tubular lock, depths 0..9, MACS 8
+  - Standard tubular configuration for bike locks
+  - Used in Kryptonite locks and computer security cables
+- tubular_10pin: 10-pin tubular lock, depths 0..9, MACS 8
+  - Extended pin count for increased security
+  - Rare variant for high-security applications
+
+Wafer Tumbler Locks
+- wafer_5wafer_shallow: 5-wafer lock, depths 0..4, MACS 3
+  - Common desk drawer and cabinet lock
+  - Shallow depth range for simple applications
+  - Reference: https://en.wikipedia.org/wiki/Wafer_tumbler_lock
+- wafer_5wafer_deep: 5-wafer lock, depths 0..7, MACS 6
+  - Deeper cuts for increased security
+  - Used in better quality furniture locks
+- wafer_6wafer_auto: 6-wafer automotive lock, depths 0..5, MACS 4
+  - Typical automotive wafer configuration
+  - Historical use in vehicle ignitions and doors (pre-1960s to 1980s)
+- wafer_10wafer_double: 10-wafer double-sided lock, depths 0..9, MACS 8
+  - Advanced wafer configuration with opposed wafer sets
+  - Double-bitted key for higher security applications
+
 CLI
 - Show presets:
   python3 tool.py presets
@@ -63,6 +122,7 @@ CLI
 - Repair:
   python3 tool.py repair --preset us --pins 5 --seq 1,7,1,1,1
 - Generate terminal examples:
+  python3 tool.py list-terminal --preset schlage_everest29_sl_tip --limit 5
 - BEST A2 tip-stop check:
   python3 tool.py check --preset best_a2_tip --seq 2,1,1,1,1,1,1
 - Yale IC A2 tip-stop check:
@@ -71,9 +131,18 @@ CLI
   python3 tool.py list-terminal --preset yale_keymark --limit 5
 - ASSA ABLOY Yale terminal examples:
   python3 tool.py list-terminal --preset assa_abloy_yale --limit 5
-
-
-  python3 tool.py list-terminal --preset schlage_everest29_sl_tip --limit 5
+- Warded lock examples:
+  python3 tool.py check --preset warded_binary --seq 1,0,1,0
+  python3 tool.py list-terminal --preset warded_multiward_8 --limit 5
+- Disc tumbler lock examples:
+  python3 tool.py check --preset disc_abloy_classic_6 --seq 0,6,0,3,2,1
+  python3 tool.py list-terminal --preset disc_abloy_protec2_10 --limit 5
+- Tubular lock examples:
+  python3 tool.py check --preset tubular_7pin --seq 0,9,0,5,3,2,1
+  python3 tool.py list-terminal --preset tubular_8pin --limit 5
+- Wafer tumbler lock examples:
+  python3 tool.py check --preset wafer_5wafer_shallow --seq 0,4,0,2,1
+  python3 tool.py list-terminal --preset wafer_6wafer_auto --limit 5
 - Enumerate small spaces:
   python3 tool.py enumerate --preset euro --pins 4 --max-repeat 4
 

@@ -306,6 +306,174 @@ def preset_schlage_everest29_sl_tip(length: int = 6) -> KeySystem:
     )
 
 
+def preset_warded_binary(length: int = 4) -> KeySystem:
+    return KeySystem(
+        name=f"Warded_Binary_{length}",
+        d_min=0,
+        d_max=1,
+        macs=1,
+        length=length,
+        stop_type="shoulder",
+        min_first_station_index=0,
+    )
+
+
+def preset_warded_multiward_4(length: int = 6) -> KeySystem:
+    return KeySystem(
+        name=f"Warded_MultiWard4_{length}",
+        d_min=0,
+        d_max=3,
+        macs=3,
+        length=length,
+        stop_type="shoulder",
+        min_first_station_index=0,
+    )
+
+
+def preset_warded_multiward_8(length: int = 6) -> KeySystem:
+    return KeySystem(
+        name=f"Warded_MultiWard8_{length}",
+        d_min=0,
+        d_max=7,
+        macs=7,
+        length=length,
+        stop_type="shoulder",
+        min_first_station_index=0,
+    )
+
+
+def preset_disc_abloy_classic_6(length: int = 6) -> KeySystem:
+    return KeySystem(
+        name=f"Disc_Abloy_Classic_{length}",
+        d_min=0,
+        d_max=6,
+        macs=6,
+        length=length,
+        stop_type="shoulder",
+        min_first_station_index=0,
+    )
+
+
+def preset_disc_abloy_classic_10(length: int = 10) -> KeySystem:
+    return KeySystem(
+        name=f"Disc_Abloy_Classic_{length}",
+        d_min=0,
+        d_max=9,
+        macs=9,
+        length=length,
+        stop_type="shoulder",
+        min_first_station_index=0,
+    )
+
+
+def preset_disc_abloy_protec2_6(length: int = 6) -> KeySystem:
+    return KeySystem(
+        name=f"Disc_Abloy_Protec2_{length}",
+        d_min=0,
+        d_max=9,
+        macs=8,
+        length=length,
+        stop_type="shoulder",
+        min_first_station_index=0,
+    )
+
+
+def preset_disc_abloy_protec2_10(length: int = 10) -> KeySystem:
+    return KeySystem(
+        name=f"Disc_Abloy_Protec2_{length}",
+        d_min=0,
+        d_max=11,
+        macs=10,
+        length=length,
+        stop_type="shoulder",
+        min_first_station_index=0,
+    )
+
+
+def preset_tubular_7pin(length: int = 7) -> KeySystem:
+    return KeySystem(
+        name=f"Tubular_7pin_{length}",
+        d_min=0,
+        d_max=9,
+        macs=8,
+        length=length,
+        stop_type="shoulder",
+        min_first_station_index=0,
+    )
+
+
+def preset_tubular_8pin(length: int = 8) -> KeySystem:
+    return KeySystem(
+        name=f"Tubular_8pin_{length}",
+        d_min=0,
+        d_max=9,
+        macs=8,
+        length=length,
+        stop_type="shoulder",
+        min_first_station_index=0,
+    )
+
+
+def preset_tubular_10pin(length: int = 10) -> KeySystem:
+    return KeySystem(
+        name=f"Tubular_10pin_{length}",
+        d_min=0,
+        d_max=9,
+        macs=8,
+        length=length,
+        stop_type="shoulder",
+        min_first_station_index=0,
+    )
+
+
+def preset_wafer_5wafer_shallow(length: int = 5) -> KeySystem:
+    return KeySystem(
+        name=f"Wafer_5wafer_Shallow_{length}",
+        d_min=0,
+        d_max=4,
+        macs=3,
+        length=length,
+        stop_type="shoulder",
+        min_first_station_index=0,
+    )
+
+
+def preset_wafer_5wafer_deep(length: int = 5) -> KeySystem:
+    return KeySystem(
+        name=f"Wafer_5wafer_Deep_{length}",
+        d_min=0,
+        d_max=7,
+        macs=6,
+        length=length,
+        stop_type="shoulder",
+        min_first_station_index=0,
+    )
+
+
+def preset_wafer_6wafer_automotive(length: int = 6) -> KeySystem:
+    return KeySystem(
+        name=f"Wafer_6wafer_Auto_{length}",
+        d_min=0,
+        d_max=5,
+        macs=4,
+        length=length,
+        stop_type="shoulder",
+        min_first_station_index=0,
+    )
+
+
+def preset_wafer_10wafer_double(length: int = 10) -> KeySystem:
+    return KeySystem(
+        name=f"Wafer_10wafer_Double_{length}",
+        d_min=0,
+        d_max=9,
+        macs=8,
+        length=length,
+        stop_type="shoulder",
+        min_first_station_index=0,
+    )
+
+
 def get_preset(name: str) -> KeySystem:
     if name == "us":
         return preset_us()
@@ -325,6 +493,34 @@ def get_preset(name: str) -> KeySystem:
         return preset_yale_ic_a2_tip()
     if name == "assa_abloy_yale":
         return preset_assa_abloy_yale_conventional()
+    if name == "warded_binary":
+        return preset_warded_binary()
+    if name == "warded_multiward_4":
+        return preset_warded_multiward_4()
+    if name == "warded_multiward_8":
+        return preset_warded_multiward_8()
+    if name == "disc_abloy_classic_6":
+        return preset_disc_abloy_classic_6()
+    if name == "disc_abloy_classic_10":
+        return preset_disc_abloy_classic_10()
+    if name == "disc_abloy_protec2_6":
+        return preset_disc_abloy_protec2_6()
+    if name == "disc_abloy_protec2_10":
+        return preset_disc_abloy_protec2_10()
+    if name == "tubular_7pin":
+        return preset_tubular_7pin()
+    if name == "tubular_8pin":
+        return preset_tubular_8pin()
+    if name == "tubular_10pin":
+        return preset_tubular_10pin()
+    if name == "wafer_5wafer_shallow":
+        return preset_wafer_5wafer_shallow()
+    if name == "wafer_5wafer_deep":
+        return preset_wafer_5wafer_deep()
+    if name == "wafer_6wafer_auto":
+        return preset_wafer_6wafer_automotive()
+    if name == "wafer_10wafer_double":
+        return preset_wafer_10wafer_double()
     raise ValueError("unknown preset")
 
 
@@ -340,7 +536,7 @@ def cli() -> None:
     sub = ap.add_subparsers(dest="cmd", required=True)
 
     ap_common = argparse.ArgumentParser(add_help=False)
-    ap_common.add_argument("--preset", choices=["us", "euro", "kwikset_6in5", "schlage_everest_full", "schlage_everest29_sl_tip", "best_a2_tip", "yale_keymark", "yale_ic_a2_tip", "assa_abloy_yale"], default="us")
+    ap_common.add_argument("--preset", choices=["us", "euro", "kwikset_6in5", "schlage_everest_full", "schlage_everest29_sl_tip", "best_a2_tip", "yale_keymark", "yale_ic_a2_tip", "assa_abloy_yale", "warded_binary", "warded_multiward_4", "warded_multiward_8", "disc_abloy_classic_6", "disc_abloy_classic_10", "disc_abloy_protec2_6", "disc_abloy_protec2_10", "tubular_7pin", "tubular_8pin", "tubular_10pin", "wafer_5wafer_shallow", "wafer_5wafer_deep", "wafer_6wafer_auto", "wafer_10wafer_double"], default="us")
     ap_common.add_argument("--pins", type=int)
     ap_common.add_argument("--depth-min", type=int)
     ap_common.add_argument("--depth-max", type=int)
@@ -367,7 +563,11 @@ def cli() -> None:
     args = ap.parse_args()
 
     if args.cmd == "presets":
-        print("presets: us, euro, kwikset_6in5, schlage_everest_full, schlage_everest29_sl_tip, best_a2_tip, yale_keymark, yale_ic_a2_tip, assa_abloy_yale")
+        print("Pin tumbler presets: us, euro, kwikset_6in5, schlage_everest_full, schlage_everest29_sl_tip, best_a2_tip, yale_keymark, yale_ic_a2_tip, assa_abloy_yale")
+        print("Warded lock presets: warded_binary, warded_multiward_4, warded_multiward_8")
+        print("Disc tumbler presets: disc_abloy_classic_6, disc_abloy_classic_10, disc_abloy_protec2_6, disc_abloy_protec2_10")
+        print("Tubular lock presets: tubular_7pin, tubular_8pin, tubular_10pin")
+        print("Wafer tumbler presets: wafer_5wafer_shallow, wafer_5wafer_deep, wafer_6wafer_auto, wafer_10wafer_double")
         return
 
     sys = get_preset(args.preset)
