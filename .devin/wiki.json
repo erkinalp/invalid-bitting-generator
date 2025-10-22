@@ -1,0 +1,301 @@
+{
+  "repo_notes": [
+    {
+      "content": ""
+    }
+  ],
+  "pages": [
+    {
+      "title": "Home",
+      "purpose": "High-level overview of the invalid-bitting-generator system, its purpose as a key bitting analysis tool for locksmithing research, and main capabilities",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Getting Started",
+      "purpose": "Practical guide for users to begin using the system, covering installation, CLI commands, and basic usage patterns",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "CLI Commands",
+      "purpose": "Comprehensive reference for all command-line interface commands (check, repair, list-terminal, enumerate, presets) with arguments and examples",
+      "parent": "Getting Started",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Quick Start Examples",
+      "purpose": "Step-by-step walkthrough of common usage scenarios with real bitting sequences and expected outputs",
+      "parent": "Getting Started",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Core Concepts",
+      "purpose": "Foundational terminology and theoretical principles underlying the system, including key bitting, terminal invalidity, and constraint theory",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Key Bitting Terminology",
+      "purpose": "Define essential terms: bitting sequences, stations, depths, MACS, deepening, and lock-specific vocabulary",
+      "parent": "Core Concepts",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Terminal Invalidity Theory",
+      "purpose": "Explain the concept of terminal invalidity, why it occurs, and its relationship to upward-closure in order theory",
+      "parent": "Core Concepts",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Physical basis",
+      "purpose": "Repairs can only deepen cuts (never shallower), and how this constraint creates the terminal invalidity problem",
+      "parent": "Core Concepts",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Constraint Classification",
+      "purpose": "Distinguish between monotone constraints (always repairable) and non-monotone constraints (can cause terminal invalidity)",
+      "parent": "Core Concepts",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "System Architecture",
+      "purpose": "Technical overview of the system's design, components, data flow, and algorithm selection mechanism",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Component Overview",
+      "purpose": "Describe the layered architecture: CLI layer, domain model (KeySystem), business logic (validation/repair), and algorithms",
+      "parent": "System Architecture",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Data Flow Pipeline",
+      "purpose": "Trace how bitting sequences flow through pre-validation, repair, and post-validation stages with decision points",
+      "parent": "System Architecture",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Algorithm Architecture",
+      "purpose": "Compare the dual-algorithm design: iterative constraint propagation vs Bellman-Ford constraint solver, and when to use each",
+      "parent": "System Architecture",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Lock Types and Presets",
+      "purpose": "Comprehensive catalog of 50+ lock system presets organized by mechanism type, with research sources for each",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Pin Tumbler Locks",
+      "purpose": "Document pin tumbler presets including generic (US, Euro) and manufacturer-specific (Kwikset, Schlage, Yale, BEST) configurations",
+      "parent": "Lock Types and Presets",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Warded Locks",
+      "purpose": "Document warded lock presets, distinguishing realistic variants (multiward, lever, padlock) from educational simplified variants",
+      "parent": "Lock Types and Presets",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Disc Tumbler Locks",
+      "purpose": "Document Abloy disc tumbler presets (Classic, Protec, Protec2, Disklock, Exec, Profile) with focus on consecutive repeat constraints",
+      "parent": "Lock Types and Presets",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Tubular Locks",
+      "purpose": "Document tubular pin tumbler presets, including standard (4-10 pin) and vintage (Chicago, Ace) configurations",
+      "parent": "Lock Types and Presets",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Wafer Tumbler Locks",
+      "purpose": "Document wafer tumbler presets including generic, automotive (GM, Ford, Chrysler), and furniture lock variants",
+      "parent": "Lock Types and Presets",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Constraint System",
+      "purpose": "Detailed technical specification of the KeySystem constraint model and all constraint types",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "KeySystem Model",
+      "purpose": "Document the KeySystem dataclass structure with all fields: d_min, d_max, macs, length, forbidden_positions, station_max_ceiling, stop_type, etc.",
+      "parent": "Constraint System",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Monotone Constraints",
+      "purpose": "Explain MACS and global depth bounds, why they're monotone under deepening, and how they're always repairable",
+      "parent": "Constraint System",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Non-Monotone Constraints",
+      "purpose": "Explain forbidden stations, station-specific ceilings, first station restrictions, and consecutive repeat limits—why they cause terminal invalidity",
+      "parent": "Constraint System",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Stop Type System",
+      "purpose": "Explain shoulder-stop vs tip-stop measurement datums and how they affect first station constraints and key cutting conventions",
+      "parent": "Constraint System",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Algorithms",
+      "purpose": "Deep dive into validation and repair algorithms, their implementation, complexity, and theoretical foundations",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Validation Pipeline",
+      "purpose": "Document the three-stage validation process: pre-validation, repair attempt, post-validation with fast-fail optimization",
+      "parent": "Algorithms",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Iterative Constraint Propagation",
+      "purpose": "Explain the default algorithm: bidirectional forward/backward passes, convergence detection, O(n²) complexity",
+      "parent": "Algorithms",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Bellman-Ford Constraint Solver",
+      "purpose": "Explain the difference constraints formulation, Bellman-Ford propagation, negative cycle detection, and when to use --use-bellman-ford",
+      "parent": "Algorithms",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Algorithm Comparison",
+      "purpose": "Compare iterative vs Bellman-Ford approaches: complexity, theoretical foundations, practical tradeoffs, and equivalence proof",
+      "parent": "Algorithms",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Research Integration",
+      "purpose": "Document how the system grounds its constraint models in real manufacturer specifications rather than theoretical assumptions",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    }
+  ]
+}The content has been copied to your clipboard. Please paste it here to complete the file creation.
